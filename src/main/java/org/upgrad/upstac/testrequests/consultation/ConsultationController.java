@@ -1,4 +1,6 @@
 package org.upgrad.upstac.testrequests.consultation;
+import org.upgrad.upstac.testrequests.RequestStatus;
+import org.upgrad.upstac.users.User;
 
 
 import org.slf4j.Logger;
@@ -59,7 +61,7 @@ public class ConsultationController {
         // For reference check the method getForTests() method from LabRequestController class
 
         // replace this line of code with your implementation
-        throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented");
+        return testRequestQueryService.findBy(RequestStatus.LAB_TEST_COMPLETED);
 
 
     }
@@ -76,7 +78,9 @@ public class ConsultationController {
         // For reference check the method getForTests() method from LabRequestController class
 
         // replace this line of code with your implementation
-        throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented");
+        User loggedUser = userLoggedInService.getLoggedInUser();
+
+        return testRequestQueryService.findByDoctor(loggedUser);
 
 
 
@@ -98,7 +102,10 @@ public class ConsultationController {
         // For reference check the method assignForLabTest() method from LabRequestController class
         try {
             // replace this line of code with your implementation
-            throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented");
+            User loggedUser = userLoggedInService.getLoggedInUser();
+            TestRequest testRequest = testRequestUpdateService.assignForConsultation(id, loggedUser);
+
+            return testRequest;
 
         }catch (AppException e) {
             throw asBadRequest(e.getMessage());
@@ -121,7 +128,8 @@ public class ConsultationController {
 
         try {
             // replace this line of code with your implementation
-            throw new ResponseStatusException(HttpStatus.NOT_IMPLEMENTED,"Not implemented");
+            User loggedUser = userLoggedInService.getLoggedInUser();
+            return testRequestUpdateService.updateConsultation(id, testResult, loggedUser);
 
 
         } catch (ConstraintViolationException e) {
