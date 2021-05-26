@@ -1,4 +1,5 @@
 package org.upgrad.upstac.testrequests.consultation;
+
 import org.upgrad.upstac.testrequests.RequestStatus;
 import org.upgrad.upstac.users.User;
 
@@ -31,8 +32,6 @@ public class ConsultationController {
     Logger log = LoggerFactory.getLogger(ConsultationController.class);
 
 
-
-
     @Autowired
     private TestRequestUpdateService testRequestUpdateService;
 
@@ -41,16 +40,15 @@ public class ConsultationController {
 
 
     @Autowired
-    TestRequestFlowService  testRequestFlowService;
+    TestRequestFlowService testRequestFlowService;
 
     @Autowired
     private UserLoggedInService userLoggedInService;
 
 
-
     @GetMapping("/in-queue")
     @PreAuthorize("hasAnyRole('DOCTOR')")
-    public List<TestRequest> getForConsultations()  {
+    public List<TestRequest> getForConsultations() {
 
         // Implement this method
 
@@ -68,7 +66,7 @@ public class ConsultationController {
 
     @GetMapping
     @PreAuthorize("hasAnyRole('DOCTOR')")
-    public List<TestRequest> getForDoctor()  {
+    public List<TestRequest> getForDoctor() {
 
         //Implement this method
 
@@ -83,10 +81,7 @@ public class ConsultationController {
         return testRequestQueryService.findByDoctor(loggedUser);
 
 
-
-
     }
-
 
 
     @PreAuthorize("hasAnyRole('DOCTOR')")
@@ -107,16 +102,15 @@ public class ConsultationController {
 
             return testRequest;
 
-        }catch (AppException e) {
+        } catch (AppException e) {
             throw asBadRequest(e.getMessage());
         }
     }
 
 
-
     @PreAuthorize("hasAnyRole('DOCTOR')")
     @PutMapping("/update/{id}")
-    public TestRequest updateConsultation(@PathVariable Long id,@RequestBody CreateConsultationRequest testResult) {
+    public TestRequest updateConsultation(@PathVariable Long id, @RequestBody CreateConsultationRequest testResult) {
 
         // Implement this method
 
@@ -134,11 +128,10 @@ public class ConsultationController {
 
         } catch (ConstraintViolationException e) {
             throw asConstraintViolation(e);
-        }catch (AppException e) {
+        } catch (AppException e) {
             throw asBadRequest(e.getMessage());
         }
     }
-
 
 
 }
